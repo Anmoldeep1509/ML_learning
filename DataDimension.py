@@ -52,5 +52,3 @@ dataset.hist()
 plt.show()
 if(DEBUG):
     print "Dataset histogram success !"
-
-
