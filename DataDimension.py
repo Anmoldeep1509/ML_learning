@@ -26,6 +26,7 @@ dataset = pandas.read_csv(url, names=names)
 if DEBUG:
     print "Data set load success!"
 
+"""
 # block 3
 #shape
 print(dataset.head(20))
@@ -52,3 +53,10 @@ dataset.hist()
 plt.show()
 if(DEBUG):
     print "Dataset histogram success !"
+"""
+
+# scatter plot matrix
+scatter_matrix(dataset)
+plt.show()
+if(DEBUG):
+    print "Dataset scatter matrix success !"
