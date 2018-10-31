@@ -53,10 +53,42 @@ dataset.hist()
 plt.show()
 if(DEBUG):
     print "Dataset histogram success !"
-"""
 
 # scatter plot matrix
 scatter_matrix(dataset)
 plt.show()
 if(DEBUG):
     print "Dataset scatter matrix success !"
+"""
+
+# split out validation dataset
+array = dataset.values
+X = array[:,0:4]
+Y = array[:,4]
+validation_size = 0.20
+seed = 7
+X_train, X_validate, Y_train, Y_validate = model_selection.train_test_split(X, Y, test_size=validation_size, random_state=seed)
+
+#  Test options and evaluation metric
+seed = 7
+scoringS = 'accuracy'
+
+# Spot check algorithms
+models = []
+models.append(('LR', LogisticRegression()))
+models.append(('LDA', LinearDiscriminantAnalysis()))
+models.append(('KNN', KNeighborsClassifier()))
+models.append(('CART', DecisionTreeClassifier()))
+models.append(('NB', GaussianNB()))
+models.append(('SVM', SVC()))
+
+# evaluate each model in turn
+results = []
+names = []
+
+for name, model in models:
+    kfold = model_selection.KFold(n_splits=10, random_state=seed)
+    cv_results = model_selection.cross_val_score(model, X_train, Y_train, cv=kfold, scoring=scoringS)
+    names.append(name)
+    msg = "%s: %f (%f)" % (name, cv_results.mean(), cv_results.std())
+    print(msg)
