@@ -60,7 +60,7 @@ plt.show()
 if(DEBUG):
     print "Dataset scatter matrix success !"
 """
-
+#block 4
 # split out validation dataset
 array = dataset.values
 X = array[:,0:4]
@@ -89,6 +89,16 @@ names = []
 for name, model in models:
     kfold = model_selection.KFold(n_splits=10, random_state=seed)
     cv_results = model_selection.cross_val_score(model, X_train, Y_train, cv=kfold, scoring=scoringS)
+    results.append(cv_results)
     names.append(name)
     msg = "%s: %f (%f)" % (name, cv_results.mean(), cv_results.std())
     print(msg)
+
+#block 5
+# Compare algorithms
+fig = plt.figure()
+fig.suptitle('Algorithm Comparision')
+ax = fig.add_subplot(111)
+plt.boxplot(results)
+ax.set_xticklabels(names)
+plt.show()
