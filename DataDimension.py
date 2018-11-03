@@ -72,7 +72,7 @@ X_train, X_validate, Y_train, Y_validate = model_selection.train_test_split(X, Y
 #  Test options and evaluation metric
 seed = 7
 scoringS = 'accuracy'
-
+"""
 # Spot check algorithms
 models = []
 models.append(('LR', LogisticRegression()))
@@ -102,3 +102,12 @@ ax = fig.add_subplot(111)
 plt.boxplot(results)
 ax.set_xticklabels(names)
 plt.show()
+"""
+# block 6
+# make predictions on validation dataset
+knn = KNeighborsClassifier()
+knn.fit(X_train, Y_train)
+predictions = knn.predict(X_validate)
+print(accuracy_score(Y_validate, predictions))
+print(confusion_matrix(Y_validate, predictions))
+print(classification_report(Y_validate, predictions))
